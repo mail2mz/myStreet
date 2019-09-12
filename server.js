@@ -86,5 +86,6 @@ router.post('/putData', (req, res) => {
 // append /api for our http requests
 app.use('/api', router);
 
+const port = process.env.PORT || API_PORT;
 // launch our backend into a port
-app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+app.listen(port, () => console.log(`LISTENING ON PORT ${API_PORT}`));
