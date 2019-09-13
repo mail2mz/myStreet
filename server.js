@@ -4,6 +4,7 @@ var cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const Data = require('./data');
+const path = require('path');
 
 const API_PORT = 3001;
 const app = express();
@@ -85,6 +86,14 @@ router.post('/putData', (req, res) => {
 
 // append /api for our http requests
 app.use('/api', router);
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 const port = process.env.PORT || API_PORT;
 // launch our backend into a port
